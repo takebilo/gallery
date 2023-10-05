@@ -35,7 +35,6 @@ def upload_image():
         filename = os.path.join(app.config['UPLOAD_FOLDER'], photo.filename)
         photo.save(filename)
 
-        # 画像のファイル名をデータベースなどに保存することもできます
         print(exif_info(filename))
         piexif.remove(filename)
 
