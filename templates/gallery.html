@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>takebilo Gallery</title>
+</head>
+<body class="gallery">
+    <ul>
+        {% for image in images %}
+            <a href="{{ image }}" target="_blank"><img class="lazyload" data-src="{{ image }}" width="700" alt="" border="0"></a>
+            <br>
+            <!-- <li><img src="{{ image }}" alt="Image"></li> -->
+        {% endfor %}
+    </ul>
+    <script>
+        lazyload();
+    </script>
+</body>
+</html>
