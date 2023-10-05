@@ -92,10 +92,8 @@ def upload_image():
 
 @app.route("/gallery")
 def garally():
-    images = get_images()
-    images.sort(reverse=True)
-    print(images)
-    return render_template('gallery.html', images=images)
+    photos = Photo.query.all()
+    return render_template('gallery.html', photos=photos)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
