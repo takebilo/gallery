@@ -15,6 +15,39 @@ IMAGE_DIR = './static/images'
 class UploadForm(FlaskForm):
     photo = FileField('Choose a photo', validators=[FileRequired()])
 
+# exif情報を取得し，DBに格納後exifを削除
+def exif_info(image_path):
+    # 画像を開く
+    image = Image.open(image_path)
+    file_name = image.filename
+
+    # EXIF情報を取得（もし存在しない場合、新しい辞書を作成）
+    exif_data = image._getexif() or {}
+
+    # タグ名と値を表示
+    for tag, value in exif_data.items():
+        tag_name = TAGS.get(tag, tag)
+        if tag_name == "LensModel":
+            lens_model = value
+        elif tag_name == "Make":
+            make = value
+        elif tag_name == "FocalLength":
+            focal_length = str(value)
+        elif tag_name == "Model":
+            model = value
+        elif tag_name == "FNumber":
+            fnumber = str(value)
+        elif tag_name == "ISOSpeedRatings":
+            iso = str(value)
+        elif tag_name == "ExposureTime":
+            exposure_time = Fraction(value)
+
+    photo_data = Post(file_name=file_name, maker=make, model=model, lens=lens_model, focal_length=focal_length, fnumber=fnumber, iso=iso, exposure_time=str(exposure_time))
+    db.session.add(photo_data)
+    db.session.commit()
+
+    return lens_model, make, focal_length, model, fnumber, iso, str(exposure_time), file_name
+
 def get_images():
     images = []
     for filename in os.listdir(IMAGE_DIR):
