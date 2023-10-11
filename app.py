@@ -10,6 +10,7 @@ import os
 import piexif
 
 app = Flask(__name__, static_folder="./static/")
+
 # アップロードされた画像の保存ディレクトリ
 app.config['UPLOAD_FOLDER'] = 'static/images'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///photo.db'
@@ -57,7 +58,7 @@ def exif_info(image_path):
         elif tag_name == "ExposureTime":
             exposure_time = Fraction(value)
 
-    photo_data = Post(file_name=file_name, maker=make, model=model, lens=lens_model, focal_length=focal_length, fnumber=fnumber, iso=iso, exposure_time=str(exposure_time))
+    photo_data = Photo(file_name=file_name, maker=make, model=model, lens=lens_model, focal_length=focal_length, fnumber=fnumber, iso=iso, exposure_time=str(exposure_time))
     db.session.add(photo_data)
     db.session.commit()
 
@@ -92,10 +93,8 @@ def upload_image():
 
 @app.route("/gallery")
 def garally():
-    images = get_images()
-    images.sort(reverse=True)
-    print(images)
-    return render_template('gallery.html', images=images)
+    photos = Photo.query.all()
+    return render_template('gallery.html', photos=photos)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
