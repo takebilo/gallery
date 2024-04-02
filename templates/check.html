@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+    {% for photo in photos %}
+    <article>
+        <p>id {{ photo.id }}</p>
+        <p>{{ photo.file_name }}</p>
+        <p>{{ photo.model }}</p>
+        <p>{{ photo.lens }}</p>
+        <p>{{ photo.focal_length }}</p>
+        <p>{{ photo.fnumber }}</p>
+        <p>{{ photo.iso }}</p>
+        <p>{{ photo.exposure_time }}</p>
+    </article>
+    {% endfor %}
+    </body>
+</html>

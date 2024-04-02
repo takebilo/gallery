@@ -1,0 +1,18 @@
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <meta charset="UTF-8">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <title>takebilo Gallery</title>
+</head>
+<body>
+    <h1 class="title">takebilo Gallery</h1>
+    <h1 class="title">写真管理</h1>
+    <form action="/upload" method="get"><br>
+        <button type="submit">写真追加</button>
+    </form>
+    <form action="/photo_delete" method="get"><br>
+        <button type="submit">写真削除</button>
+    </form><br>
+    <button onclick="location.href='/logout'">Logout</button>
+</body>

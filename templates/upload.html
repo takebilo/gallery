@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+<head>
+    <title>Image Upload</title>
+</head>
+<body>
+    <h1 class="title">Upload an Image</h1>
+    <form method="POST" enctype="multipart/form-data">
+        {{ form.hidden_tag() }}
+        <div>
+        <p>
+            {{ form.photo.label }}<br>
+            {{ form.photo() }}
+        </p>
+        <p><input type="submit" value="Upload"></p>
+        </div>
+    </form>
+    <button type="button" onclick="location.href='/photo_after_login'">戻る</button>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/lazyload@2.0.0-rc.2/lazyload.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+    <title>takebilo Gallery</title>
+</head>
+<body class="gallery">
+    {% for photo in photos | reverse %}
+    <div  class="flex">
+        <a href="{{ photo.file_name }}" target="_blank"><img class="lazyload" data-src="{{ photo.sumnail }}" alt="" border="0"></a>
+        <div class="text">
+        <br>
+        Maker : {{ photo.maker }}
+        <br>
+        <br>
+        Model : {{ photo.model }}
+        <br>
+        <br>
+        Lens : {{ photo.lens }}
+        <br>
+        <br>
+        Focal length : {{ photo.focal_length }} mm
+        <br>
+        <br>
+        F number : {{ photo.fnumber }}
+        <br>
+        <br>
+        ISO : {{ photo.iso }}
+        </html>
+        Exposure time : {{ photo.exposure_time }} s</div>
+        <form action="{{ url_for('photo_delete', id=photo.id) }}" method="POST">  
+            <input type="submit" value="削除">  
+        </form>
+    </div>
+    {% endfor %}
+    <button type="button" onclick="location.href='/photo_after_login'">戻る</button>
+
+    <script>
+        lazyload();
+    </script>
+</body>
+</html>
